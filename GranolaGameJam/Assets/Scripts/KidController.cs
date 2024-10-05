@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using DG.Tweening;
+using UnityEngine.UIElements;
 
 public class KidController : MonoBehaviour
 {
     [Header("Kid Variables")]
     public float points;
-    [Tooltip("speed is time in seconds it takes for kid to become fully exposed")]
-    public float speed;
+    [Tooltip("moveTime is time in seconds it takes for kid to become fully exposed")]
+    public float moveTime;
     public float timeExposed;
     public Transform spawnPoint;
     public Transform finalPoint;
@@ -17,7 +19,6 @@ public class KidController : MonoBehaviour
     public bool wasPwned;
     public bool isWaitingOrMoving;
     public int waitTime;
-    public int currentTime;
 
   
 
@@ -33,18 +34,17 @@ public class KidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(spawnPoint.position, finalPoint.position, speed);
-        //if (!wasPwned) JumpOut(); 
 
-        /*if (wasPwned)
+        if (!isWaitingOrMoving)
+        {
+            JumpOut();
+        }
+
+        if (wasPwned)
         {
             Reset();
-            StopAllCoroutines();
         }
-        else if(!isWaitingOrMoving)
-        {
-            StartCoroutine(Wait());
-        }*/
+
 
     }
 /*
@@ -54,50 +54,53 @@ public class KidController : MonoBehaviour
  */
     public void JumpOut()
     {
-        wasPwned= true;
-        Vector3.Lerp(spawnPoint.position, finalPoint.position, speed);
-        Invoke("PrepRetreat", speed);
+        isWaitingOrMoving = true;
+        transform.DOMove(finalPoint.position, moveTime);
+        Invoke("PrepRetreat", moveTime);
     }
 
- /*
- * Method: Retreat
- * Purpose: Bring kid back to spawnpoint if it isnt already there
- * No parameters or returns
- */
+/* Method: PrepRetreat
+* Purpose: Call retreat after timeExposed secondss
+* No parameters or returns
+*/
     public void PrepRetreat()
     {
         Invoke("Retreat", timeExposed);
     }
-
+/*
+* Method: Retreat
+* Purpose: Bring kid back to spawnpoint if it isnt already there
+* No parameters or returns
+*/
     public void Retreat()
     {
-        if (gameObject.transform.position != spawnPoint.position) Vector3.Lerp(finalPoint.position, spawnPoint.position, speed);
-        wasPwned = false;
+        if (gameObject.transform.position != spawnPoint.position) transform.DOMove(spawnPoint.position, moveTime);
+        Invoke("StopMoving", moveTime);
+
+    }
+/*
+ * Method: StopMoving
+ * Purpose: Snap kid to starting position and wait for next peek
+ * No parameters or returns
+ */
+
+    public void StopMoving()
+    {
+        gameObject.transform.position = spawnPoint.position;
+        isWaitingOrMoving = false;
     }
 
+ /*
+ * Method: Reset
+ * Purpose: Snap kid to starting position after being shot and wait for next peek
+ * No parameters or returns
+ */
     public void Reset()
     {
         gameObject.transform.position = spawnPoint.position;
         waitTime = (int)Random.Range(3f, 10f);
+        Invoke("JumpOut", waitTime);
         isWaitingOrMoving = false;
-    }
-
-/*
- * Method: WaitTime
- * Purpose: Wait for waitTime seconds 
- */
-    IEnumerator Wait()
-    {
-        isWaitingOrMoving = true;
-        if (currentTime < waitTime)
-        {
-            currentTime++;
-            yield return new WaitForSeconds(1f);
-        }
-        else
-        {
-            JumpOut();
-            StopCoroutine(Wait());
-        }
+        wasPwned = false;
     }
 }
