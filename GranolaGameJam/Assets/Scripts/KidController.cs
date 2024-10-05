@@ -17,7 +17,6 @@ public class KidController : MonoBehaviour
     
     [Header("Attributes")]
     public bool wasPwned;
-    public bool isWaitingOrMoving;
     public int waitTime;
 
   
@@ -25,21 +24,14 @@ public class KidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        waitTime = (int)Random.Range(3f, 10f);
+        waitTime = (int)Random.Range(1f, 5f);
         wasPwned = false;
-        isWaitingOrMoving = false;
-        
+        JumpOut();
     }
 
     // Update is called once per frame
     void Update()
-    {
-
-        if (!isWaitingOrMoving)
-        {
-            JumpOut();
-        }
-
+    { 
         if (wasPwned)
         {
             Reset();
@@ -54,7 +46,6 @@ public class KidController : MonoBehaviour
  */
     public void JumpOut()
     {
-        isWaitingOrMoving = true;
         transform.DOMove(finalPoint.position, moveTime);
         Invoke("PrepRetreat", moveTime);
     }
@@ -74,33 +65,24 @@ public class KidController : MonoBehaviour
 */
     public void Retreat()
     {
-        if (gameObject.transform.position != spawnPoint.position) transform.DOMove(spawnPoint.position, moveTime);
-        Invoke("StopMoving", moveTime);
+        if (gameObject.transform.position != spawnPoint.position)
+        {
+            transform.DOMove(spawnPoint.position, moveTime);
+            Invoke("Reset", moveTime);
+        }
 
-    }
-/*
- * Method: StopMoving
- * Purpose: Snap kid to starting position and wait for next peek
- * No parameters or returns
- */
-
-    public void StopMoving()
-    {
-        gameObject.transform.position = spawnPoint.position;
-        isWaitingOrMoving = false;
     }
 
  /*
  * Method: Reset
- * Purpose: Snap kid to starting position after being shot and wait for next peek
+ * Purpose: Snap kid to starting position and wait for next peek
  * No parameters or returns
  */
     public void Reset()
     {
         gameObject.transform.position = spawnPoint.position;
-        waitTime = (int)Random.Range(3f, 10f);
+        waitTime = (int)Random.Range(1f, 5f);
         Invoke("JumpOut", waitTime);
-        isWaitingOrMoving = false;
         wasPwned = false;
     }
 }
