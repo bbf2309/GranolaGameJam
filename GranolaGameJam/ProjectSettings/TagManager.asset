@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - TimerTxt
   - Coin
+  - DeathZone
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,11 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     private bool isGrounded;
     private Rigidbody2D rb;
+
     private Inventory inventory;
+
+    public GameObject deathSFX;
+    float dirX;
 
     void Start()
     {
@@ -27,6 +31,8 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
+
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -58,6 +64,17 @@ public class PlayerController : MonoBehaviour
             //destroys attached game object
             Destroy(collision.gameObject);
         }
+        
+        if (collision.gameObject.tag == "DeathZone")
+        {
+            dead();
+        }
+    }
+
+    void dead()
+    {
+        Instantiate(deathSFX, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
    
 }
