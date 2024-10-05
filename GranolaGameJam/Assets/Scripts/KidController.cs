@@ -33,7 +33,8 @@ public class KidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!wasPwned) JumpOut(); 
+        transform.position = Vector3.Lerp(spawnPoint.position, finalPoint.position, speed);
+        //if (!wasPwned) JumpOut(); 
 
         /*if (wasPwned)
         {
