@@ -24,9 +24,10 @@ public class KidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        transform.position = spawnPoint.position;
         waitTime = (int)Random.Range(1f, 5f);
         wasPwned = false;
-        JumpOut();
+        Invoke("JumpOut", waitTime);
     }
 
     // Update is called once per frame
@@ -67,6 +68,7 @@ public class KidController : MonoBehaviour
     {
         if (gameObject.transform.position != spawnPoint.position)
         {
+
             transform.DOMove(spawnPoint.position, moveTime);
             Invoke("Reset", moveTime);
         }
