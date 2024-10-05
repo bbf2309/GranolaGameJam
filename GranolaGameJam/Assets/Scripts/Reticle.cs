@@ -1,7 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+/*
+ * Reticle.CS
+ * Created by Ben Fox
+ * for Granola.GG x RIT IGM Game Jam
+ * 
+ */
 public class Reticle : MonoBehaviour
 {
     private Vector3 mousePosition;
@@ -11,24 +17,34 @@ public class Reticle : MonoBehaviour
     private AudioSource SFX;
     public DrawLine line;
     public GameManager GM;
+    public float reload;
+    private float lastShootTime;
+    private bool readyToFire;
 
     // Start is called before the first frame update
     void Start()
     {
+        readyToFire = true;
         SFX = GetComponent<AudioSource>();
         boxCollider = GetComponent<BoxCollider2D>();
         Cursor.visible = false;
         onTarget = false;
+        lastShootTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
         mousePosition = Input.mousePosition;
-        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x,mousePosition.y, +10));
-        if(Input.GetMouseButtonDown(0))
+        if (readyToFire) transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, +10));
+        else transform.position = new Vector3(100, 100, 100); 
+
+        if (Input.GetMouseButtonDown(0) && (Time.time > lastShootTime + reload))
         {
+            readyToFire = false;
+            Invoke("MakeReadyToFire", reload);
             Shoot();
+            lastShootTime = Time.time; 
         }
     }
 
@@ -41,12 +57,16 @@ public class Reticle : MonoBehaviour
             onTarget = true;
             target = collision.gameObject; 
         }
-        else
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Kid"))
         {
             onTarget = false;
             target = null;
         }
-
     }
 
 
@@ -62,5 +82,10 @@ public class Reticle : MonoBehaviour
             controller.Reset();
             GM.score += controller.points;
         }
+    }
+
+    void MakeReadyToFire()
+    {
+        readyToFire = true;
     }
 }
