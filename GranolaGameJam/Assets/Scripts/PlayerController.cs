@@ -8,10 +8,12 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     private bool isGrounded;
     private Rigidbody2D rb;
+    private Inventory inventory;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        inventory = GetComponent<Inventory>();
     }
 
     void Update()
@@ -44,4 +46,18 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            Debug.Log(collision.gameObject.name + " is the player");
+
+            inventory.keyCount++;
+
+            //destroys attached game object
+            Destroy(collision.gameObject);
+        }
+    }
+   
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - TimerTxt
+  - Coin
   layers:
   - Default
   - TransparentFX
