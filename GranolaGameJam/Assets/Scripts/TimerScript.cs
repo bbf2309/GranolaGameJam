@@ -27,6 +27,7 @@ public class TimerScript : MonoBehaviour
                 Debug.Log("Time is UP!");
                 TimeLeft = 0;
                 TimerOn = false;
+                // stop player movement, jump to mom scene 
             }
         }
     }
@@ -39,6 +40,7 @@ public class TimerScript : MonoBehaviour
         float seconds = Mathf.FloorToInt(currentTime % 60);
 
         TimerTxt.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        // when char wakes up, they see game win screen on ds with leftover seconds left and coins
     }
 
 }
