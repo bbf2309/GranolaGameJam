@@ -17,15 +17,20 @@ public class KidController : MonoBehaviour
     
     [Header("Attributes")]
     public int waitTime;
+    public bool wasShot;
 
+
+    private AudioSource AS;
   
 
     // Start is called before the first frame update
     void Start()
     {
+        wasShot = false;
         transform.position = spawnPoint.position;
         waitTime = (int)Random.Range(1f, 5f);
         Invoke("JumpOut", waitTime);
+        AS = GetComponent<AudioSource>();
     }
 
 /*
@@ -71,8 +76,14 @@ public class KidController : MonoBehaviour
     public void Reset()
     {
         DOTween.Kill(transform);
+        if (wasShot)
+        {
+            wasShot=false;
+            AS.pitch = Random.Range(1f, 3f);
+            AS.Play();
+        }
         gameObject.transform.position = spawnPoint.position;
-        waitTime = (int)Random.Range(1f, 5f);
+        waitTime = (int)Random.Range(-2f, 5f);
         CancelInvoke();
         Invoke("JumpOut", waitTime);
     }

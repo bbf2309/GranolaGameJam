@@ -9,6 +9,8 @@ public class Reticle : MonoBehaviour
     public bool onTarget;
     public GameObject target;
     private AudioSource SFX;
+    public DrawLine line;
+    public GameManager GM;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +52,15 @@ public class Reticle : MonoBehaviour
 
     void Shoot()
     {
+        SFX.pitch = Random.Range(1f,3f);
         SFX.Play();
+        line.Blast();
         if (onTarget)
         {
-            target.GetComponent<KidController>().Reset();
-            
+            KidController controller = target.GetComponent<KidController>();
+            controller.wasShot = true;
+            controller.Reset();
+            GM.score += controller.points;
         }
     }
 }
