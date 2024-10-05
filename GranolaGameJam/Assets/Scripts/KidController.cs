@@ -16,7 +16,6 @@ public class KidController : MonoBehaviour
     public Transform finalPoint;
     
     [Header("Attributes")]
-    public bool wasPwned;
     public int waitTime;
 
   
@@ -26,20 +25,9 @@ public class KidController : MonoBehaviour
     {
         transform.position = spawnPoint.position;
         waitTime = (int)Random.Range(1f, 5f);
-        wasPwned = false;
         Invoke("JumpOut", waitTime);
     }
 
-    // Update is called once per frame
-    void Update()
-    { 
-        if (wasPwned)
-        {
-            Reset();
-        }
-
-
-    }
 /*
  * Method: JumpOut
  * Purpose: Bring kid to finalPoint, stay there for timeExposed, then invoke retreat
@@ -82,9 +70,10 @@ public class KidController : MonoBehaviour
  */
     public void Reset()
     {
+        DOTween.Kill(transform);
         gameObject.transform.position = spawnPoint.position;
         waitTime = (int)Random.Range(1f, 5f);
+        CancelInvoke();
         Invoke("JumpOut", waitTime);
-        wasPwned = false;
     }
 }

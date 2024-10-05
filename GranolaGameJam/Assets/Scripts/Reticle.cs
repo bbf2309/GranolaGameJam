@@ -8,10 +8,12 @@ public class Reticle : MonoBehaviour
     private BoxCollider2D boxCollider;
     public bool onTarget;
     public GameObject target;
+    private AudioSource SFX;
 
     // Start is called before the first frame update
     void Start()
     {
+        SFX = GetComponent<AudioSource>();
         boxCollider = GetComponent<BoxCollider2D>();
         Cursor.visible = false;
         onTarget = false;
@@ -21,7 +23,7 @@ public class Reticle : MonoBehaviour
     void Update()
     {
         mousePosition = Input.mousePosition;
-        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x,mousePosition.y, +8));
+        transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x,mousePosition.y, +10));
         if(Input.GetMouseButtonDown(0))
         {
             Shoot();
@@ -30,10 +32,12 @@ public class Reticle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.gameObject.CompareTag("Kid"))
         {
+            Debug.LogWarning("OnTarget!");
             onTarget = true;
-            target = collision.gameObject;
+            target = collision.gameObject; 
         }
         else
         {
@@ -42,11 +46,15 @@ public class Reticle : MonoBehaviour
         }
 
     }
+
+
     void Shoot()
     {
+        SFX.Play();
         if (onTarget)
         {
             target.GetComponent<KidController>().Reset();
+            
         }
     }
 }
