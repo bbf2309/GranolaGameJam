@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class TimerScript : MonoBehaviour
 {
     public float TimeLeft;
     public bool TimerOn = false;
 
-    public Text TimerTxt;
+    public TextMeshProUGUI TimerTxt;
 
     void Start()
     {

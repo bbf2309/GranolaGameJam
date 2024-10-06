@@ -83,7 +83,7 @@ public class KidController : MonoBehaviour
             AS.Play();
         }
         gameObject.transform.position = spawnPoint.position;
-        waitTime = (int)Random.Range(-2f, 5f);
+        waitTime = (int)Random.Range(3f, 5f);
         CancelInvoke();
         Invoke("JumpOut", waitTime);
     }
