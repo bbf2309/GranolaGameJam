@@ -22,8 +22,8 @@ public class DrawLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LR.SetPosition(0, GO1.transform.position);
-        LR.SetPosition(1, GO2.transform.position);
+        LR.SetPosition(0, new Vector3 (GO1.transform.position.x, GO1.transform.position.y, 1));
+        LR.SetPosition(1, new Vector3 (GO2.transform.position.x, GO2.transform.position.y, 1));
     }
 
     public void Blast()

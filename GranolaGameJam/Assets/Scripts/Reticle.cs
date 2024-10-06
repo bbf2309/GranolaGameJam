@@ -37,14 +37,10 @@ public class Reticle : MonoBehaviour
     {
         mousePosition = Input.mousePosition;
         if (readyToFire) transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, +10));
-        else
-        {
-            transform.position = new Vector3(100, 100, 100);
-
-        }
 
         if (Input.GetMouseButtonDown(0) && (Time.time > lastShootTime + reload))
         {
+            line.Blast();
             readyToFire = false;
             Invoke("MakeReadyToFire", reload);
             Shoot();
@@ -78,7 +74,7 @@ public class Reticle : MonoBehaviour
     {
         SFX.pitch = Random.Range(1f,3f);
         SFX.Play();
-        line.Blast();
+        
         if (onTarget)
         {
             KidController controller = target.GetComponent<KidController>();
