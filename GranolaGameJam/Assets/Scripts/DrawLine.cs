@@ -22,17 +22,17 @@ public class DrawLine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        LR.SetPosition(0, new Vector3 (GO1.transform.position.x, GO1.transform.position.y, 1));
-        LR.SetPosition(1, new Vector3 (GO2.transform.position.x, GO2.transform.position.y, 1));
+        LR.SetPosition(0, new Vector3 (GO1.transform.position.x, GO1.transform.position.y, 0));
+        LR.SetPosition(1, new Vector3 (GO2.transform.position.x, GO2.transform.position.y, 0));
     }
 
     public void Blast()
     {
-        LR.gameObject.transform.position = new Vector3(LR.gameObject.transform.position.x, LR.gameObject.transform.position.y, 0);
+        LR.sortingOrder = 2;
         Invoke("HideLaser", laserTime);
     }
     public void HideLaser()
     {
-        LR.gameObject.transform.position = new Vector3(LR.gameObject.transform.position.x, LR.gameObject.transform.position.y, 1);
+        LR.sortingOrder = -2;
     }
 }
