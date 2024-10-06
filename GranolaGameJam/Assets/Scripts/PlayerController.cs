@@ -9,9 +9,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5f;
     private bool isGrounded;
     private Rigidbody2D rb;
-
+    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
     private Inventory inventory;
-
+    public Animator animator;
     public GameObject deathSFX;
     // public ParticleSystem deathPS;
 
@@ -27,6 +27,20 @@ public class PlayerController : MonoBehaviour
         // Handle horizontal movement
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+
+        // If the input is moving the player right and the player is facing left...
+        if (moveInput > 0 && !m_FacingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
+        // Otherwise if the input is moving the player left and the player is facing right...
+        else if (moveInput < 0 && m_FacingRight)
+        {
+            // ... flip the player.
+            Flip();
+        }
 
         // Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
@@ -34,7 +48,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-
+        if (rb.velocity.y < 0f)
+        {
+            animator.SetBool("Descending", true);
+            animator.SetBool("Ascending", false);
+        }
+        else
+        {
+            animator.SetBool("Descending", false);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +65,9 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            animator.SetBool("isJumping", false);
+            animator.SetBool("Ascending", false);
+            animator.SetBool("Descending", false);
         }
     }
 
@@ -52,6 +77,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = false;
+            animator.SetBool("isJumping", true);
+            animator.SetBool("Ascending", true);
         }
     }
 
@@ -95,4 +122,14 @@ public class PlayerController : MonoBehaviour
 
 
     //}
+    private void Flip()
+    {
+        // Switch the way the player is labelled as facing.
+        m_FacingRight = !m_FacingRight;
+
+        // Multiply the player's x local scale by -1.
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
 }
