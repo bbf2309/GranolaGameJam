@@ -97,9 +97,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "DeathZone")
         {
             dead();
-            GoToScene("WinEvent");
-
-
+            GoToScene("LoseScene");
+        }
+        if (collision.gameObject.tag == "Finish")
+        {
+            GoToScene("WinScene");
         }
     }
 

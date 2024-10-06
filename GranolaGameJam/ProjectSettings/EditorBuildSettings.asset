@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LaserTag.unity
     guid: e521ae7adfda9384f90953c38cf143a6
+  - enabled: 1
+    path: Assets/Scenes/LoseScene.unity
+    guid: 3ccc7c7f1f8f21f4c9b55438f3302bfb
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: f79089af7c2d4304ba929fd8e7b3929c
   m_configObjects: {}

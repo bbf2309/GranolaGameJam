@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreDisplay.text = "Score: "+score.ToString();
+        scoreDisplay.text = "Score: "+score.ToString()+"   Target Score: "+winConn.ToString();
         if(score >= winConn)
         {
             WinScreen();
@@ -33,11 +34,11 @@ public class GameManager : MonoBehaviour
 
     public void WinScreen()
     {
-        //Call Win Screen
+        SceneManager.LoadScene("WinScene");
     }
 
     public void LoseScreen()
     {
-        //Call Lose Screen
+        SceneManager.LoadScene("LoseScene");
     }
 }
