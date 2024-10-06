@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,12 +13,13 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
 
     public GameObject deathSFX;
-    float dirX;
+    // public ParticleSystem deathPS;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         inventory = GetComponent<Inventory>();
+        //  deathPS = GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -64,10 +66,13 @@ public class PlayerController : MonoBehaviour
             //destroys attached game object
             Destroy(collision.gameObject);
         }
-        
+
         if (collision.gameObject.tag == "DeathZone")
         {
             dead();
+            GoToScene("WinEvent");
+
+
         }
     }
 
@@ -76,5 +81,18 @@ public class PlayerController : MonoBehaviour
         Instantiate(deathSFX, transform.position, transform.rotation);
         Destroy(gameObject);
     }
-   
+
+    public void GoToScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
+    //IEnumerator NextSceneAfterWait()
+    //{
+    //    yield return new WaitForSeconds(1.0f);
+
+    //    SceneManager.LoadScene("WinEvent");
+
+
+    //}
 }

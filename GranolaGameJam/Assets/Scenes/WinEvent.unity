@@ -247,7 +247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'ello
+  m_text: 'you won!
 
 '
   m_isRightToLeft: 0
