@@ -8,15 +8,16 @@ TagManager:
   - TimerTxt
   - Coin
   - DeathZone
+  - Kid
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
-  - 
-  - 
+  - Kids
+  - Barricade
   - 
   - 
   - 
