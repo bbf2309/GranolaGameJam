@@ -12,8 +12,8 @@ public class FogContoller : MonoBehaviour
     void Start()
     {
         transform.position = GO1.transform.position;
-        transform.DOMove(GO2.transform.position, 10);
-        Invoke("MoveAgain", 10);
+        transform.DOMove(GO2.transform.position, 20);
+        Invoke("MoveAgain", 20);
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class FogContoller : MonoBehaviour
         GO2.transform.position = new Vector3 (GO2.transform.position.x, yVal, GO2.transform.position.z);
 
         transform.position = GO1.transform.position;
-        transform.DOMove(GO2.transform.position, 10);
-        Invoke("MoveAgain", 10);
+        transform.DOMove(GO2.transform.position, 20);
+        Invoke("MoveAgain", 20);
     }
 }
