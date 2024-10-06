@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: -0.54
+    m_Value: -1.06
   contrast:
     m_OverrideState: 0
     m_Value: -0.25
@@ -43,7 +43,7 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.7101414, g: 0.4584905, b: 1, a: 1}
+    m_Value: {r: 0.35766807, g: 0.2756497, b: 0.5471698, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
@@ -89,10 +89,10 @@ MonoBehaviour:
   active: 1
   type:
     m_OverrideState: 1
-    m_Value: 6
+    m_Value: 9
   intensity:
     m_OverrideState: 1
-    m_Value: 0.46
+    m_Value: 0.679
   response:
     m_OverrideState: 0
     m_Value: 0.8
@@ -246,9 +246,9 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
   blue:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value:
-      <length>k__BackingField: 2
+      <length>k__BackingField: 3
       m_Loop: 0
       m_ZeroValue: 0
       m_Range: 1
@@ -260,6 +260,15 @@ MonoBehaviour:
           value: 0
           inSlope: 1
           outSlope: 1
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 0.83162516
+          value: 0.40309286
+          inSlope: 1.4364167
+          outSlope: 1.4364167
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -300,8 +309,8 @@ MonoBehaviour:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0.46266472
-          value: 0.3412372
+          time: 0.21669105
+          value: 0.35773176
           inSlope: 0
           outSlope: 0
           tangentMode: 0
