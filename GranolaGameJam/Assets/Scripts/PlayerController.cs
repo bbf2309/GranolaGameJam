@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Inventory inventory;
     public Animator animator;
     public GameObject deathSFX;
+     
     // public ParticleSystem deathPS;
 
     void Start()
@@ -42,6 +43,15 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
 
+        if (Input.GetButton("Horizontal"))
+        {
+            animator.SetBool("movementKeyDown", true);
+        }
+        else
+        {
+            animator.SetBool("movementKeyDown", false);
+        }
+
         // Handle jumping
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -69,6 +79,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Ascending", false);
             animator.SetBool("Descending", false);
         }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            animator.SetBool("touchWall", true);
+        }
     }
 
     void OnCollisionExit2D(Collision2D collision)
@@ -79,6 +94,13 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             animator.SetBool("isJumping", true);
             animator.SetBool("Ascending", true);
+
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            animator.SetBool("touchWall", false);
+            animator.SetBool("isJumping", false);
         }
     }
 
@@ -97,10 +119,17 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "DeathZone")
         {
             dead();
-            GoToScene("WinEvent");
-
+            GoToScene("LoseEvent");
+            //go back to level select or final cut scene based on some sort of global win counter 
 
         }
+
+        if(collision.gameObject.tag == "Win")
+        {
+            GoToScene("WinEvent"); //replace with final exposition  
+        }
+
+
     }
 
     void dead()
