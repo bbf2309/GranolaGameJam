@@ -37,7 +37,11 @@ public class Reticle : MonoBehaviour
     {
         mousePosition = Input.mousePosition;
         if (readyToFire) transform.position = Camera.main.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, +10));
-        else transform.position = new Vector3(100, 100, 100); 
+        else
+        {
+            transform.position = new Vector3(100, 100, 100);
+
+        }
 
         if (Input.GetMouseButtonDown(0) && (Time.time > lastShootTime + reload))
         {
