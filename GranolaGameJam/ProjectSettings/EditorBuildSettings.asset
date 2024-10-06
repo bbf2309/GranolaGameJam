@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: cea26fb71d762d34d85b1ab238e6126b
+  - enabled: 1
+    path: Assets/Scenes/work_1.unity
+    guid: ce94045ad3d362c44b463e1b12894d8e
+  - enabled: 1
+    path: Assets/Scenes/LaserTag.unity
+    guid: e521ae7adfda9384f90953c38cf143a6
   m_configObjects: {}
