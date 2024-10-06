@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Astronaut.unity
     guid: 2442481bd484397438729a1824c21811
+  - enabled: 1
+    path: Assets/Scenes/Intro Cutscene.unity
+    guid: f03c89b1860ff694998180f90c9c26f5
   m_configObjects: {}
