@@ -9,6 +9,8 @@ TagManager:
   - Coin
   - DeathZone
   - Kid
+  - Wall
+  - Win
   layers:
   - Default
   - TransparentFX
